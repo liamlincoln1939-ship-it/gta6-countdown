@@ -1,185 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#100b20">
-  <title>Deadly Decisions — GTA VI Countdown</title>
-  <style>
-    :root {
-      --pink: #ff4f9a;
-      --cyan: #5cecff;
-      --ink: #100b20;
-      --muted: #c7c4d8;
-    }
-    * { box-sizing: border-box; }
-    html, body { width: 100%; min-height: 100%; margin: 0; }
-    body {
-      min-height: 100vh;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      color: #fff;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: #100b20;
-      background-image:
-        linear-gradient(180deg, rgba(7, 6, 18, .48) 0%, rgba(7, 6, 18, .70) 48%, rgba(7, 6, 18, .88) 100%),
-        url("https://www.rockstargames.com/VI/_next/static/media/Official_Cover_Art_landscape.12.uu2irr.2_a.jpg?akim=1&imdensity=1&imwidth=1600");
-      background-size: cover;
-      background-position: center center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      position: relative;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(ellipse at center, transparent 15%, rgba(5, 4, 15, .42) 100%);
-      z-index: 0;
-    }
-    main {
-      position: relative;
-      z-index: 1;
-      width: min(100%, 1040px);
-      text-align: center;
-      padding: clamp(26px, 5vw, 58px);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 28px;
-      background: linear-gradient(145deg, rgba(10,8,25,.76), rgba(10,8,25,.56));
-      box-shadow: 0 30px 100px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.10);
-      backdrop-filter: blur(8px);
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 24px;
-      color: #e5deef;
-      font-size: .76rem;
-      font-weight: 750;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 13px var(--pink); }
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 5.7vw, 4.5rem);
-      line-height: .98;
-      font-weight: 950;
-      letter-spacing: -.055em;
-      text-transform: uppercase;
-      text-shadow: 0 3px 0 rgba(0,0,0,.18);
-    }
-    h1 span {
-      display: block;
-      margin-top: 8px;
-      color: var(--pink);
-      letter-spacing: .015em;
-      -webkit-text-stroke: .5px rgba(255,255,255,.18);
-      text-shadow: 0 0 30px rgba(255,79,154,.2);
-    }
-    .subtitle { margin: 18px 0 0; color: var(--muted); font-size: clamp(.9rem, 1.8vw, 1.05rem); letter-spacing: .025em; }
-    #timer {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(9px, 2vw, 18px);
-      margin-top: clamp(30px, 5vw, 48px);
-    }
-    .time-box {
-      min-width: 0;
-      padding: clamp(16px, 3vw, 27px) 8px clamp(14px, 2.6vw, 23px);
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 17px;
-      background: rgba(8,10,27,.55);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-    .time-box span {
-      display: block;
-      font-variant-numeric: tabular-nums;
-      font-size: clamp(2rem, 6.2vw, 4.6rem);
-      font-weight: 850;
-      line-height: 1;
-      letter-spacing: -.06em;
-      color: #fff;
-    }
-    .time-box label {
-      display: block;
-      margin-top: 12px;
-      color: #a8a4bf;
-      font-size: clamp(.62rem, 1.5vw, .78rem);
-      font-weight: 800;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-    .footer {
-      margin-top: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      color: #a7a2bb;
-      font-size: .78rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .footer strong { color: #fff; font-weight: 800; }
-    .footer .dash { width: 22px; height: 1px; background: linear-gradient(90deg, var(--pink), var(--cyan)); }
-    @media (max-width: 560px) {
-      body { padding: 14px; overflow: auto; background-attachment: scroll; }
-      main { padding: 28px 16px; border-radius: 20px; }
-      .game-art-wrap { margin-top: 20px; border-radius: 13px; }
-      #timer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .time-box { padding: 22px 8px 18px; }
-      .footer { flex-wrap: wrap; font-size: .68rem; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      main { animation: arrive .7s ease-out both; }
-      @keyframes arrive { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100b20">
+<title>Deadly Decisions — GTA VI Global Countdown</title>
+<style>
+:root{--pink:#ff4f9a;--cyan:#5cecff;--ink:#100b20;--muted:#c7c4d8}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{min-height:100vh;overflow:hidden;padding:clamp(12px,2.1vw,28px);color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#100b20 url("https://www.rockstargames.com/VI/_next/static/media/Official_Cover_Art_landscape.12.uu2irr.2_a.jpg?akim=1&imdensity=1&imwidth=1600") center/cover fixed no-repeat;position:relative;display:flex;align-items:center;justify-content:center}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(7,6,18,.52),rgba(7,6,18,.76)),radial-gradient(ellipse at center,transparent 10%,rgba(5,4,15,.38) 100%);z-index:0}
+main{position:relative;z-index:1;width:min(100%,1600px);max-height:100%;padding:clamp(16px,2vw,30px);border:1px solid rgba(255,255,255,.2);border-radius:24px;background:rgba(10,8,25,.58);box-shadow:0 25px 90px #0008,inset 0 1px #ffffff14;backdrop-filter:blur(7px);display:flex;flex-direction:column}
+header{text-align:center;flex:0 0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:10px;color:#e5deef;font-size:clamp(.6rem,.8vw,.76rem);font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 13px var(--pink)}
+h1{margin:0;font-size:clamp(1.7rem,3.4vw,3.7rem);line-height:.98;font-weight:950;letter-spacing:-.05em;text-transform:uppercase;text-shadow:0 3px #0003}
+h1 span{color:var(--pink);letter-spacing:.01em;text-shadow:0 0 25px #ff4f9a33}
+.subtitle{margin:10px 0 4px;color:#d0cadd;font-size:clamp(.72rem,1.05vw,1rem)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,14px);margin-top:clamp(14px,1.8vw,24px);min-height:0}
+.city{min-width:0;padding:clamp(9px,1.2vw,16px);border:1px solid #ffffff24;border-radius:14px;background:rgba(7,9,26,.47);box-shadow:inset 0 1px #ffffff0b}
+.city.featured{border-color:#ff4f9a99;background:rgba(42,10,39,.48);box-shadow:inset 0 1px #ffffff12,0 0 18px #ff4f9a12}
+.city-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;min-width:0}
+.flag{font-size:clamp(1.05rem,1.7vw,1.7rem);line-height:1}
+.city-name{font-weight:850;font-size:clamp(.76rem,1.25vw,1.1rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.city-zone{margin-left:auto;color:#bcb6ce;font-size:clamp(.55rem,.8vw,.72rem);white-space:nowrap}
+.time{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(4px,.55vw,8px)}
+.unit{min-width:0;text-align:center;padding:clamp(6px,.8vw,11px) 2px;border-radius:8px;background:rgba(0,0,0,.24);border:1px solid #ffffff0d}
+.num{display:block;font-size:clamp(1rem,2.25vw,2.15rem);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.06em}
+.lab{display:block;margin-top:5px;color:#b3adc6;font-size:clamp(.46rem,.62vw,.62rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.city.featured .num{color:#fff}
+.note{margin-top:clamp(10px,1.3vw,18px);text-align:center;color:#d0cadd;font-size:clamp(.55rem,.8vw,.76rem)}
+.footer{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;color:#aaa4bd;font-size:clamp(.58rem,.75vw,.72rem);letter-spacing:.14em;text-transform:uppercase}
+.footer strong{color:#fff}.dash{width:22px;height:1px;background:linear-gradient(90deg,var(--pink),var(--cyan))}
+@media(max-width:1000px){body{overflow:auto;min-height:100vh;height:auto;background-attachment:scroll}main{max-height:none}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.num{font-size:clamp(1.15rem,3vw,2rem)}.lab{font-size:.58rem}}
+@media(max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.city-zone{display:none}.city-name{font-size:.88rem}.num{font-size:clamp(1.25rem,5vw,2rem)}.lab{font-size:.56rem}}
+@media(prefers-reduced-motion:no-preference){main{animation:arrive .65s ease-out both}@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
+</style>
 </head>
 <body>
-  <main>
-    <div class="eyebrow">The countdown is on</div>
-    <h1>Grand Theft Auto <span>VI</span></h1>
-    <p class="subtitle">Counting down to launch</p>
-    <div id="timer" aria-label="Time until GTA VI release">
-      <div class="time-box"><span id="days">00</span><label>Days</label></div>
-      <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
-      <div class="time-box"><span id="minutes">00</span><label>Minutes</label></div>
-      <div class="time-box"><span id="seconds">00</span><label>Seconds</label></div>
-    </div>
-    <div class="footer"><span class="dash"></span><strong>Deadly Decisions</strong><span class="dash"></span></div>
-  </main>
-  <script>
-    // Rockstar's currently announced date is November 19, 2026.
-    // This countdown targets midnight UTC at the start of that date.
-    const releaseDate = new Date('2026-11-19T00:00:00Z').getTime();
-    const units = {
-      days: document.getElementById('days'),
-      hours: document.getElementById('hours'),
-      minutes: document.getElementById('minutes'),
-      seconds: document.getElementById('seconds')
-    };
-    function updateCountdown() {
-      const distance = releaseDate - Date.now();
-      if (distance <= 0) {
-        document.querySelector('h1').innerHTML = 'GTA VI <span>IS HERE</span>';
-        document.querySelector('.subtitle').textContent = 'The wait is over.';
-        Object.values(units).forEach(el => el.textContent = '00');
-        clearInterval(countdownInterval);
-        return;
-      }
-      units.days.textContent = String(Math.floor(distance / 86400000));
-      units.hours.textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, '0');
-      units.minutes.textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, '0');
-      units.seconds.textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, '0');
-    }
-    updateCountdown();
-    const countdownInterval = setInterval(updateCountdown, 1000);
-  </script>
+<main>
+<header>
+<div class="eyebrow">The countdown is on · worldwide</div>
+<h1>Grand Theft Auto <span>VI</span></h1>
+<p class="subtitle">One screen. Major time zones. The wait is almost over.</p>
+</header>
+<section class="grid" id="grid" aria-label="GTA VI countdowns by region"></section>
+<div class="note">Each timer counts down to 12:00 AM on November 19, 2026 in that region. Actual game unlock times may vary by platform and location.</div>
+<div class="footer"><span class="dash"></span><strong>Deadly Decisions</strong><span class="dash"></span></div>
+</main>
+<script>
+const regions=[
+ {flag:"🇳🇿",name:"Auckland",zone:"Pacific/Auckland",label:"New Zealand",featured:true},
+ {flag:"🇳🇿",name:"Chatham Islands",zone:"Pacific/Chatham",label:"New Zealand"},
+ {flag:"🇦🇺",name:"Sydney",zone:"Australia/Sydney",label:"Australia"},
+ {flag:"🇯🇵",name:"Tokyo",zone:"Asia/Tokyo",label:"Japan"},
+ {flag:"🇸🇬",name:"Singapore",zone:"Asia/Singapore",label:"Singapore"},
+ {flag:"🇦🇪",name:"Dubai",zone:"Asia/Dubai",label:"UAE"},
+ {flag:"🇬🇧",name:"London",zone:"Europe/London",label:"United Kingdom"},
+ {flag:"🇫🇷",name:"Paris",zone:"Europe/Paris",label:"France"},
+ {flag:"🇿🇦",name:"Johannesburg",zone:"Africa/Johannesburg",label:"South Africa"},
+ {flag:"🇺🇸",name:"New York",zone:"America/New_York",label:"USA · Eastern"},
+ {flag:"🇺🇸",name:"Chicago",zone:"America/Chicago",label:"USA · Central"},
+ {flag:"🇺🇸",name:"Los Angeles",zone:"America/Los_Angeles",label:"USA · Pacific"}
+];
+const pad=n=>String(n).padStart(2,"0");
+function zonedParts(date,zone){
+ const parts=new Intl.DateTimeFormat("en-GB",{timeZone:zone,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(date);
+ return Object.fromEntries(parts.filter(p=>p.type!=="literal").map(p=>[p.type,Number(p.value)]));
+}
+function localMidnightAsUtc(zone){
+ const wanted=Date.UTC(2026,10,19,0,0,0);
+ let guess=wanted;
+ for(let i=0;i<4;i++){
+  const p=zonedParts(new Date(guess),zone);
+  const shown=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);
+  const correction=wanted-shown;
+  guess+=correction;
+  if(correction===0)break;
+ }
+ return guess;
+}
+const grid=document.getElementById("grid");
+const nodes=regions.map((r,i)=>{
+ const card=document.createElement("article");
+ card.className="city"+(r.featured?" featured":"");
+ card.innerHTML='<div class="city-head"><span class="flag" aria-hidden="true">'+r.flag+'</span><span class="city-name">'+r.name+'</span><span class="city-zone">'+r.label+'</span></div><div class="time" aria-label="Time remaining"><div class="unit"><span class="num" data-unit="days">--</span><span class="lab">Days</span></div><div class="unit"><span class="num" data-unit="hours">--</span><span class="lab">Hours</span></div><div class="unit"><span class="num" data-unit="minutes">--</span><span class="lab">Mins</span></div><div class="unit"><span class="num" data-unit="seconds">--</span><span class="lab">Secs</span></div></div>';
+ grid.appendChild(card);
+ return {region:r,target:localMidnightAsUtc(r.zone),elements:Object.fromEntries([...card.querySelectorAll("[data-unit]")].map(el=>[el.dataset.unit,el]))};
+});
+function update(){
+ const now=Date.now();
+ for(const item of nodes){
+  let ms=Math.max(0,item.target-now);
+  const values={days:Math.floor(ms/86400000),hours:Math.floor(ms%86400000/3600000),minutes:Math.floor(ms%3600000/60000),seconds:Math.floor(ms%60000/1000)};
+  for(const [unit,value] of Object.entries(values))item.elements[unit].textContent=unit==="days"?String(value):pad(value);
+  if(ms===0)item.region.done=true;
+ }
+}
+update();
+setInterval(update,1000);
+</script>
 </body>
 </html>
