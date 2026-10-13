@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#100b20">
-<title>Deadly Decisions — GTA VI Global Countdown</title>
+<title>GTA VI Global Countdown</title>
 <style>
 :root{--pink:#ff4f9a;--cyan:#5cecff;--ink:#100b20;--muted:#c7c4d8}
 *{box-sizing:border-box}
@@ -30,8 +30,6 @@ h1 span{color:var(--pink);letter-spacing:.01em;text-shadow:0 0 25px #ff4f9a33}
 .num{display:block;font-size:clamp(1rem,2.25vw,2.15rem);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.06em}
 .lab{display:block;margin-top:5px;color:#b3adc6;font-size:clamp(.46rem,.62vw,.62rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .city.featured .num{color:#fff}
-.footer{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;color:#aaa4bd;font-size:clamp(.58rem,.75vw,.72rem);letter-spacing:.14em;text-transform:uppercase}
-.footer strong{color:#fff}.dash{width:22px;height:1px;background:linear-gradient(90deg,var(--pink),var(--cyan))}
 @media(max-width:1000px){body{overflow:auto;min-height:100vh;height:auto;background-attachment:scroll}main{max-height:none}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.num{font-size:clamp(1.15rem,3vw,2rem)}.lab{font-size:.58rem}}
 @media(max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.city-zone{display:none}.city-name{font-size:.88rem}.num{font-size:clamp(1.25rem,5vw,2rem)}.lab{font-size:.56rem}}
 @media(prefers-reduced-motion:no-preference){main{animation:arrive .65s ease-out both}@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
@@ -46,7 +44,6 @@ h1 span{color:var(--pink);letter-spacing:.01em;text-shadow:0 0 25px #ff4f9a33}
 </header>
 <section class="grid" id="grid" aria-label="GTA VI countdowns by region"></section>
 
-<div class="footer"><span class="dash"></span><strong>Deadly Decisions</strong><span class="dash"></span></div>
 </main>
 <script>
 const regions=[
