@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deadly's Goal Tracker</title>
+<style>
+:root {
+  --site-primary: #ffcc3e;
+  --site-on-primary: #18130b;
+  --site-secondary: #201716;
+  --site-on-secondary: #fff7e6;
+  --site-background: #10100f;
+  --site-on-background: #fff8e9;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-font-heading: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --surface: light-dark(#fffdf7, #1a1917);
+  --surface-soft: light-dark(#f8f0d8, #26221c);
+  --border: light-dark(#e4d8b7, #403526);
+  --muted: light-dark(#6e6655, #b9ad94);
+  --green: #4ade80;
+  --amber: #fbbf24;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
+#app { min-height: 100vh; width: 100%; border-radius: 0; background: radial-gradient(ellipse at 80% 0%, #382318 0, transparent 38%), var(--site-background); color: var(--site-on-background); padding: calc(30px * var(--site-spacing-scale)); position: relative; overflow: hidden; }
+.glow { position: absolute; width: 340px; height: 340px; border-radius: 50%; filter: blur(70px); opacity: calc(.18 * var(--site-decoration-opacity)); pointer-events: none; right: -90px; top: -130px; background: var(--site-primary); }
+.wrap { max-width: 1180px; margin: 0 auto; position: relative; }
+header { display:flex; align-items:center; justify-content:space-between; gap: 16px; margin-bottom: 28px; }
+.brand { display:flex; align-items:center; gap:12px; }
+.logo { width:52px; height:52px; display:grid; place-items:center; border-radius:4px; background:var(--site-primary); color:var(--site-on-primary); font-family:var(--site-font-heading); font-size:31px; font-weight:900; transform:rotate(-4deg); box-shadow:4px 4px 0 #a83b2b; }
+.eyebrow { color:#ffcc3e; text-transform:uppercase; letter-spacing:.17em; font-size:11px; font-weight:900; }
+h1,h2,h3,p { margin:0; }
+h1 { font-family:var(--site-font-heading); font-size:calc(36px * var(--site-heading-scale)); letter-spacing:.015em; text-transform:uppercase; text-shadow:3px 3px 0 #a83b2b; }
+.sub { color:var(--muted); font-size:14px; margin-top:4px; }
+.pill { border:1px solid var(--border); background:var(--surface); color:var(--muted); padding:9px 12px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap; }
+.hero { display:grid; grid-template-columns:1.35fr .65fr; gap:18px; margin-bottom:18px; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:calc(24px * var(--site-spacing-scale)); min-width:0; box-shadow:5px 5px 0 rgba(0,0,0,.25); }
+.hero-main { background:var(--site-secondary); color:var(--site-on-secondary); border-color:transparent; position:relative; overflow:hidden; }
+.hero-main::after { content:""; position:absolute; width:200px; height:200px; border-radius:50%; background:var(--site-primary); opacity:calc(.16 * var(--site-decoration-opacity)); right:-65px; bottom:-115px; }
+.hero-main h2 { font-family:var(--site-font-heading); text-transform:uppercase; font-size:calc(38px * var(--site-heading-scale)); letter-spacing:.015em; line-height:1.02; margin:13px 0 12px; color:#ffcc3e; text-shadow:3px 3px 0 #a83b2b; max-width:650px; }
+.hero-main p { color:#c5d0dc; line-height:1.55; max-width:560px; font-size:14px; }
+.stats { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:22px; position:relative; z-index:1; }
+.stat { padding:15px; background:rgba(255,255,255,.045); border:1px solid rgba(255,204,62,.22); border-radius:4px; }
+.stat label { display:block; color:#aeb9c8; font-size:11px; margin-bottom:5px; }
+.stat strong { font-size:20px; letter-spacing:-.03em; }
+.progress-card { display:flex; flex-direction:column; justify-content:space-between; gap:20px; }
+.progress-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.progress-top h3 { font-size:16px; }
+.big-number { font-family:var(--site-font-heading); font-size:36px; font-weight:850; letter-spacing:.01em; margin-top:10px; }
+.muted { color:var(--muted); font-size:12px; }
+.track { width:100%; height:10px; background:var(--surface-soft); border-radius:999px; overflow:hidden; margin-top:13px; }
+.fill { height:100%; width:0%; border-radius:0; background:linear-gradient(90deg,#ffcc3e,#ef6538); transition:width .25s ease; }
+.section-head { display:flex; align-items:end; justify-content:space-between; gap:12px; margin:25px 0 12px; }
+.section-head h2 { font-size:19px; letter-spacing:-.03em; }
+.section-head p { color:var(--muted); font-size:12px; margin-top:4px; }
+.btn { border:0; border-radius:3px; padding:12px 15px; background:var(--site-primary); color:var(--site-on-primary); font-weight:900; cursor:pointer; font:inherit; font-size:13px; text-transform:uppercase; letter-spacing:.04em; box-shadow:3px 3px 0 #a83b2b; }
+.btn:hover { filter:brightness(1.08); }
+.btn.secondary { background:var(--surface-soft); color:var(--site-on-background); border:1px solid var(--border); }
+.goals-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.goal { display:flex; flex-direction:column; gap:14px; }
+.goal-top { display:flex; gap:12px; align-items:flex-start; }
+.goal-icon { flex:0 0 46px; height:46px; display:grid; place-items:center; background:#33271c; border:1px solid #5a4325; border-radius:4px; font-size:23px; }
+.goal h3 { font-size:16px; margin:1px 0 5px; }
+.goal p { font-size:12px; color:var(--muted); line-height:1.5; }
+.goal-foot { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:12px; color:var(--muted); }
+.goal-foot strong { color:var(--site-on-background); font-size:13px; }
+.milestones { display:flex; flex-direction:column; gap:0; }
+.milestone { display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+.milestone:last-child { border-bottom:0; padding-bottom:0; }
+.milestone input[type=checkbox] { accent-color:var(--site-primary); width:19px; height:19px; margin-top:2px; flex:0 0 auto; cursor:pointer; }
+.milestone-copy { flex:1; }
+.milestone-copy strong { display:block; font-size:14px; margin-bottom:4px; }
+.milestone-copy span { color:var(--muted); font-size:12px; line-height:1.45; }
+.milestone.done strong { text-decoration:line-through; color:var(--muted); }
+.bottom-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-row { display:flex; gap:8px; margin-top:14px; }
+input[type=number], input[type=text], input[type=date] { min-width:0; width:100%; border:1px solid var(--border); border-radius:12px; background:var(--surface-soft); color:var(--site-on-background); padding:11px 12px; font:inherit; font-size:14px; }
+label.field-label { display:block; font-size:12px; color:var(--muted); margin:14px 0 6px; }
+.note { color:var(--muted); font-size:12px; line-height:1.55; margin-top:12px; }
+.alert { display:none; margin-top:12px; padding:10px 12px; border-radius:12px; background:rgba(74,222,128,.12); color:var(--green); font-size:12px; }
+footer { text-align:center; color:var(--muted); font-size:11px; margin:22px 0 3px; }
+@media (max-width:720px) { #app { padding:18px; } header { align-items:flex-start; flex-direction:column; } .hero,.goals-grid,.bottom-grid { grid-template-columns:1fr; } h1 { font-size:26px; } .card { padding:18px; } .section-head { align-items:flex-start; flex-direction:column; } }
+</style>
+</head>
+<body>
+<div id="app" data-sites-preview-theme>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="logo">D</div><div><div class="eyebrow">Los Santos · Personal Progress</div><h1>Deadly's Goal Tracker</h1><p class="sub">Earn it. Build it. Upgrade it.</p></div></div>
+      <div class="pill" id="todayPill">MISSION LOG · 2026 / 2027</div>
+    </header>
+
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow">★ Main mission · 01</div>
+        <h2>First the PC.<br>Then the empire.</h2>
+        <p>Use your TV for now, get gaming, and save for the three-monitor setup without rushing into extra payments.</p>
+        <div class="stats">
+          <div class="stat"><label>▰ PC budget cap</label><strong id="pcBudgetHero">$2,500</strong></div>
+          <div class="stat"><label>▰ Monitor goal</label><strong id="monitorBudgetHero">$744.99</strong></div>
+        </div>
+      </div>
+      <div class="card progress-card">
+        <div>
+          <div class="progress-top"><h3>Monitor stash</h3><span class="eyebrow">Phase 02</span></div>
+          <div class="big-number" id="savedDisplay">$0.00</div>
+          <div class="muted" id="remainingDisplay">$744.99 left to save</div>
+          <div class="track"><div class="fill" id="savingsFill"></div></div>
+          <div class="goal-foot" style="margin-top:9px"><span id="percentDisplay">0% complete</span><strong id="targetDisplay">Goal: $744.99</strong></div>
+        </div>
+        <div><label class="field-label" for="savedInput">Update how much you've saved (NZD)</label><div class="form-row"><input id="savedInput" type="number" min="0" step="0.01" value="0" aria-label="Amount saved"><button class="btn" id="saveAmountBtn">Update</button></div><div class="alert" id="savedAlert">Savings updated — keep going! 🎉</div></div>
+      </div>
+    </section>
+
+    <div class="section-head"><div><h2>Your goals</h2><p>Track the big wins as you go.</p></div><button class="btn secondary" id="editTargetsBtn">Edit budget targets</button></div>
+    <section class="goals-grid">
+      <article class="card goal"><div class="goal-top"><div class="goal-icon">🖥️</div><div><h3>1. Get the gaming PC</h3><p>Priority one — black case, RTX 5060 Ti if it fits the budget, 32GB RAM target, 1TB SSD, Windows 11, and a reliable NZ seller.</p></div></div><div class="track"><div class="fill" id="pcFill" style="width:0%"></div></div><div class="goal-foot"><span>PC budget cap</span><strong id="pcBudgetCard">$2,500</strong></div><div class="goal-foot"><span>Keyboard + mouse</span><strong>$27</strong></div></article>
+      <article class="card goal"><div class="goal-top"><div class="goal-icon">🖥️</div><div><h3>2. Save for three monitors</h3><p>34-inch WQHD 180Hz ultrawide in the middle, plus two 27-inch side monitors. Keep using the TV until then.</p></div></div><div class="track"><div class="fill" id="monitorFillCard"></div></div><div class="goal-foot"><span>Current order estimate</span><strong id="monitorBudgetCard">$744.99</strong></div><div class="goal-foot"><span>Saved so far</span><strong id="savedSmall">$0.00</strong></div></article>
+    </section>
+
+    <div class="section-head"><div><h2>Milestone checklist</h2><p>Tick things off as you complete them.</p></div><span class="pill" id="milestoneCount">0 / 6 complete</span></div>
+    <section class="card milestones" id="milestones">
+      <label class="milestone"><input type="checkbox" data-id="budget"><span class="milestone-copy"><strong>Confirm final PC and delivery price</strong><span>Check the exact model, warranty, Windows activation, specs and checkout total.</span></span></label>
+      <label class="milestone"><input type="checkbox" data-id="funding"><span class="milestone-copy"><strong>PC payment plan sorted</strong><span>Make sure the payment schedule is manageable before committing.</span></span></label>
+      <label class="milestone"><input type="checkbox" data-id="peripherals"><span class="milestone-copy"><strong>Keyboard and mouse ready</strong><span>HP 230 wireless combo — currently aiming for $27.</span></span></label>
+      <label class="milestone"><input type="checkbox" data-id="pcarrived"><span class="milestone-copy"><strong>PC arrives and is set up</strong><span>Connect to the TV, install updates, test games and set up Discord / OBS.</span></span></label>
+      <label class="milestone"><input type="checkbox" data-id="saving"><span class="milestone-copy"><strong>Monitor savings started</strong><span>Choose a weekly amount you can realistically keep up with.</span></span></label>
+      <label class="milestone"><input type="checkbox" data-id="monitors"><span class="milestone-copy"><strong>Three-monitor setup complete</strong><span>Buy when the full order fits your budget — no need to rush.</span></span></label>
+    </section>
+
+    <div class="section-head"><div><h2>Make the plan yours</h2><p>Adjust your target and get a savings estimate.</p></div></div>
+    <section class="bottom-grid">
+      <div class="card">
+        <h3>Budget settings</h3><p class="note">Change these if prices move or you find a better deal.</p>
+        <label class="field-label" for="pcBudgetInput">PC budget cap (NZD)</label><input id="pcBudgetInput" type="number" min="0" step="1" value="2500">
+        <label class="field-label" for="monitorBudgetInput">Monitor order target (NZD)</label><input id="monitorBudgetInput" type="number" min="0" step="0.01" value="744.99">
+        <button class="btn" id="applyTargetsBtn" style="margin-top:14px;width:100%">Save budget targets</button><div class="alert" id="targetAlert">Budget targets saved.</div>
+      </div>
+      <div class="card">
+        <h3>Weekly savings calculator</h3><p class="note">How much would you need to put aside to reach the monitor goal?</p>
+        <label class="field-label" for="weeksInput">Target timeframe</label><select id="weeksInput" style="width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface-soft);color:var(--site-on-background);padding:11px 12px;font:inherit"><option value="26">6 months (26 weeks)</option><option value="39">9 months (39 weeks)</option><option value="52" selected>12 months (52 weeks)</option></select>
+        <div class="big-number" id="weeklyNeeded">$14.33<span style="font-size:13px;font-weight:600;color:var(--muted)"> / week</span></div><p class="note" id="weeklyCaption">Based on your remaining monitor savings target.</p>
+      </div>
+    </section>
+    <footer>Your progress is stored in this browser on this device. If you clear browser data or switch devices, it may reset.</footer>
+  </div>
+</div>
+<script>
+const STORAGE_KEY = 'deadlyGoalTrackerV1';
+const defaults = { saved: 0, pcBudget: 2500, monitorBudget: 744.99, checks: {} };
+let state = { ...defaults };
+try { const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); if (stored && typeof stored === 'object') state = { ...defaults, ...stored, checks: stored.checks || {} }; } catch (e) {}
+const money = n => new Intl.NumberFormat('en-NZ', { style: 'currency', currency: 'NZD' }).format(Number(n) || 0);
+function persist() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+function clampSaved() { state.saved = Math.max(0, Number(state.saved) || 0); }
+function updateUI() {
+  clampSaved();
+  const remaining = Math.max(0, state.monitorBudget - state.saved);
+  const pct = state.monitorBudget > 0 ? Math.min(100, state.saved / state.monitorBudget * 100) : 100;
+  document.getElementById('savedDisplay').textContent = money(state.saved);
+  document.getElementById('remainingDisplay').textContent = remaining > 0 ? `${money(remaining)} left to save` : 'Goal reached — nice work! 🎉';
+  document.getElementById('savingsFill').style.width = pct + '%';
+  document.getElementById('monitorFillCard').style.width = pct + '%';
+  document.getElementById('percentDisplay').textContent = `${Math.round(pct)}% complete`;
+  document.getElementById('targetDisplay').textContent = `Goal: ${money(state.monitorBudget)}`;
+  document.getElementById('savedSmall').textContent = money(state.saved);
+  document.getElementById('pcBudgetHero').textContent = money(state.pcBudget);
+  document.getElementById('pcBudgetCard').textContent = money(state.pcBudget);
+  document.getElementById('monitorBudgetHero').textContent = money(state.monitorBudget);
+  document.getElementById('monitorBudgetCard').textContent = money(state.monitorBudget);
+  document.getElementById('savedInput').value = state.saved;
+  document.getElementById('pcBudgetInput').value = state.pcBudget;
+  document.getElementById('monitorBudgetInput').value = state.monitorBudget;
+  document.querySelectorAll('#milestones input[type=checkbox]').forEach(cb => { cb.checked = !!state.checks[cb.dataset.id]; cb.closest('.milestone').classList.toggle('done', cb.checked); });
+  const done = Object.values(state.checks).filter(Boolean).length;
+  document.getElementById('milestoneCount').textContent = `${done} / 6 complete`;
+  const weeks = Number(document.getElementById('weeksInput').value) || 52;
+  const weekly = remaining / weeks;
+  document.getElementById('weeklyNeeded').innerHTML = `${money(weekly)}<span style="font-size:13px;font-weight:600;color:var(--muted)"> / week</span>`;
+  document.getElementById('weeklyCaption').textContent = remaining <= 0 ? 'You have reached your monitor savings goal.' : `Save about ${money(weekly)} each week for ${weeks} weeks to reach your goal.`;
+  persist();
+}
+document.getElementById('saveAmountBtn').addEventListener('click', () => {
+  state.saved = Math.max(0, Number(document.getElementById('savedInput').value) || 0);
+  updateUI();
+  const alert = document.getElementById('savedAlert'); alert.style.display = 'block'; setTimeout(() => alert.style.display = 'none', 2400);
+});
+document.getElementById('savedInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('saveAmountBtn').click(); });
+document.querySelectorAll('#milestones input[type=checkbox]').forEach(cb => cb.addEventListener('change', () => { state.checks[cb.dataset.id] = cb.checked; updateUI(); }));
+function applyTargets() {
+  state.pcBudget = Math.max(0, Number(document.getElementById('pcBudgetInput').value) || 0);
+  state.monitorBudget = Math.max(0, Number(document.getElementById('monitorBudgetInput').value) || 0);
+  updateUI(); const alert = document.getElementById('targetAlert'); alert.style.display = 'block'; setTimeout(() => alert.style.display = 'none', 2400);
+}
+document.getElementById('applyTargetsBtn').addEventListener('click', applyTargets);
+document.getElementById('editTargetsBtn').addEventListener('click', () => { document.getElementById('pcBudgetInput').focus(); document.getElementById('pcBudgetInput').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+document.getElementById('weeksInput').addEventListener('change', updateUI);
+const date = new Date(); document.getElementById('todayPill').textContent = `YOUR PLAN · ${date.getFullYear()} / ${date.getFullYear()+1}`;
+updateUI();
+</script>
+</body>
+</html>
