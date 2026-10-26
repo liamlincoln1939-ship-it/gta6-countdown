@@ -43,6 +43,14 @@ body.goal-hidden:after{background:rgba(8,6,18,.04)!important}
 .trailer-sound{font-size:15px;letter-spacing:.04em}
 @media(prefers-reduced-transparency:reduce){.panel,.stat,.next,.percent,.dark,.trailer-tools select,.trailer-tools button{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(23,19,42,.96)!important}}
 
+
+/* Final clean-up: hide the intro and decorative PC image; use GTA's Pricedown display type */
+.top,.hero,.machine{display:none!important}
+.wrap{padding-top:clamp(18px,4vh,38px)!important}
+body,.label,.ends,.stat strong,.nextcopy b,.nextamount,.settings summary,button,.trailer-tools select,.trailer-tools button,.trailer-sound,.live,.logo,.eyebrow{font-family:'Pricedown','Impact',sans-serif!important;letter-spacing:.035em}
+.amount,.percent,.stat strong,.nextamount{letter-spacing:.02em}
+button,.trailer-tools select,.trailer-tools button,.trailer-sound{font-size:15px}
+
 </style></head><body><iframe id="gta-video-bg" src="https://www.youtube-nocookie.com/embed/rz1B4B2yBZY?autoplay=1&mute=1&controls=0&loop=1&playlist=rz1B4B2yBZY&playsinline=1&rel=0&enablejsapi=1&origin=https%3A%2F%2Fliamlincoln1939-ship-it.github.io" title="GTA VI Launch Trailer background" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" aria-hidden="true"></iframe><div class="trailer-tools"><label for="trailerSelect" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Choose background video or song</label><select id="trailerSelect" aria-label="Choose background video or song" onchange="switchGtaTrailer(this.value)"><option value="rz1B4B2yBZY" selected>GTA VI Launch Trailer</option><option value="cjVQ36NhbMk">The Fray — How to Save a Life</option><option value="4ASJBXu8tNo">Augustana — Boston</option><option value="Se8S0sP7s7I">Nicki Minaj — Starships</option><option value="QdBZY2fkU-0">GTA VI Trailer 1</option><option value="VQRLujxTm3c">GTA VI Trailer 2</option></select><button id="hideGoalUi" type="button" onclick="toggleGoalUi()">🙈 Hide goal UI</button></div><button class="trailer-sound" id="trailerSound" type="button" onclick="playTrailerSound()">🔊 Play selected audio</button><main class="wrap">
 <header class="top"><div class="logo">⚡ DEADLY'S <span>PC QUEST</span></div><div class="live">● SAVINGS MODE</div></header>
 <section class="hero"><div class="machine" aria-hidden="true"><div class="fan"></div></div><div class="eyebrow">THE DREAM SETUP IS LOADING</div><h1>ROAD TO<br><span>PC UNLOCKED</span></h1><p class="sub">Every dollar gets you closer. Stack your wins, hit the milestones, and make that setup yours.</p></section>
