@@ -70,7 +70,7 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
   <span class="next-time" id="next-time">Coming up next</span>
 </section>
 <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress"></div></div>
-<div class="footer"><span id="rotation">Region 1 of 15</span><span>Auto-rotates every 7 seconds</span></div>
+<div class="footer"><span id="rotation">Region 1 of 15</span><span>Auto-rotates every 10 seconds</span></div>
 </main>
 <script>
 // Store-region launch moments are represented by midnight local time on 19 November 2026.
@@ -113,7 +113,7 @@ regions.sort((a,b)=>a.target-b.target);
 const el=id=>document.getElementById(id);
 let current=0;
 let shownAt=Date.now();
-const ROTATE_MS=7000;
+const ROTATE_MS=10000;
 function nextUpcoming(afterIndex){
  for(let step=1;step<=regions.length;step++){
   const r=regions[(afterIndex+step)%regions.length];
