@@ -46,11 +46,10 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
 
 .music{max-width:760px;margin:24px auto 0;padding:17px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(8,7,22,.38)}
 .music-heading{margin:0 0 12px;color:var(--cyan);font-size:.68rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase;text-align:center}
-.music-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.music-track{min-width:0}
-.music-track iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
-.music-name{margin:0 0 7px;color:#fff;font-size:.85rem;font-weight:750}
-@media(max-width:600px){.music-list{grid-template-columns:1fr}.music-track iframe{height:152px}}
+.music-name{margin:0 0 7px;color:#fff;font-size:.85rem;font-weight:750;text-align:center}
+.music iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+.music-note{margin:8px 0 0;color:rgba(255,255,255,.55);font-size:.66rem;text-align:center}
+@media(max-width:600px){.music iframe{height:152px}}
 
 /* Keep the full countdown dashboard inside shorter laptop/Chromebook screens. */
 @media (min-width:700px) and (max-height:900px){
@@ -69,7 +68,7 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
  .music{margin-top:13px;padding:10px 14px}
  .music-heading{margin-bottom:7px}
  .music-name{margin-bottom:5px;font-size:.76rem}
- .music-track iframe{height:80px}
+ .music iframe{height:80px}
  .footer{margin-top:8px}
 }
 \n</style>
@@ -99,22 +98,15 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
   <span class="next-time" id="next-time">Coming up next</span>
 </section>
 
-<section class="music" aria-label="Music player">
-  <h2 class="music-heading">Countdown soundtrack · audio</h2>
-  <div class="music-list">
-    <div class="music-track">
-      <p class="music-name">Midnight City · M83</p>
-      <iframe title="Midnight City by M83 — Spotify audio player" src="https://open.spotify.com/embed/track/6M9DkAAuh4ibDchrc8GBAn?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
-    <div class="music-track">
-      <p class="music-name">Flower in a Hurricane · Justice, Tame Impala, SZA &amp; King Gizzard &amp; The Lizard Wizard</p>
-      <iframe title="Flower in a Hurricane — Spotify audio player" src="https://open.spotify.com/embed/album/1V8Qu6CwkBfYucnCWxynq8?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
-  </div>
+<section class="music" aria-label="Rotating soundtrack">
+  <h2 class="music-heading">Countdown soundtrack · auto-rotating</h2>
+  <p class="music-name" id="music-name">Midnight City · M83</p>
+  <iframe id="music-player" title="Countdown soundtrack Spotify audio player" src="https://open.spotify.com/embed/track/6M9DkAAuh4ibDchrc8GBAn?utm_source=generator&theme=0&autoplay=1" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <p class="music-note" id="music-note">Songs switch automatically every 4 minutes. Press play once if your browser blocks autoplay.</p>
 </section>
 
 <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress"></div></div>
-<div class="footer"><span id="rotation">Region 1 of 15</span><span>Auto-rotates every 10 seconds</span></div>
+<div class="footer"><span id="rotation">Region 1 of 15</span><span>Auto-rotates every 10 seconds</span><span id="version">Version 1</span></div>
 </main>
 <script>
 // Store-region launch moments are represented by midnight local time on 19 November 2026.
@@ -158,6 +150,23 @@ const el=id=>document.getElementById(id);
 let current=0;
 let shownAt=Date.now();
 const ROTATE_MS=10000;
+
+// Spotify/browser autoplay is best-effort: browsers may require one manual Play click.
+const soundtrack=[
+ {name:"Midnight City · M83",url:"https://open.spotify.com/embed/track/6M9DkAAuh4ibDchrc8GBAn?utm_source=generator&theme=0&autoplay=1"},
+ {name:"Flower in a Hurricane · Justice, Tame Impala, SZA & King Gizzard & The Lizard Wizard",url:"https://open.spotify.com/embed/album/1V8Qu6CwkBfYucnCWxynq8?utm_source=generator&theme=0&autoplay=1"}
+];
+let currentSong=0;
+const SONG_ROTATE_MS=240000;
+let songChangedAt=Date.now();
+function rotateSong(){
+ if(Date.now()-songChangedAt<SONG_ROTATE_MS)return;
+ currentSong=(currentSong+1)%soundtrack.length;
+ const song=soundtrack[currentSong];
+ el("music-name").textContent=song.name;
+ el("music-player").src=song.url;
+ songChangedAt=Date.now();
+}
 function nextUpcoming(afterIndex){
  for(let step=1;step<=regions.length;step++){
   const r=regions[(afterIndex+step)%regions.length];
@@ -206,7 +215,7 @@ function rotate(){
 }
 showRegion(0);
 update();
-setInterval(()=>{update();rotate()},250);
+setInterval(()=>{update();rotate();rotateSong()},250);
 </script>
 </body>
 </html>
