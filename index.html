@@ -43,6 +43,14 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
 .stage.changing{animation:enter .45s ease both}
 @media(max-width:540px){body{padding:10px}main{padding:25px 14px;border-radius:23px}.region{gap:9px}.city{font-size:clamp(1.8rem,8vw,3rem)}.timer{gap:6px}.unit{border-radius:13px;padding:14px 2px}.num{font-size:clamp(1.55rem,8vw,2.5rem)}.lab{letter-spacing:.1em}.next{padding:14px 12px}.next-time{font-size:.65rem}.footer{font-size:.58rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+.music{max-width:760px;margin:24px auto 0;padding:17px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(8,7,22,.38)}
+.music-heading{margin:0 0 12px;color:var(--cyan);font-size:.68rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase;text-align:center}
+.music-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.music-track{min-width:0}
+.music-track iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+.music-name{margin:0 0 7px;color:#fff;font-size:.85rem;font-weight:750}
+@media(max-width:600px){.music-list{grid-template-columns:1fr}.music-track iframe{height:152px}}
 </style>
 </head>
 <body>
@@ -69,6 +77,21 @@ h1 span{color:var(--pink);text-shadow:0 0 30px #ff65ad55}
   <div class="next-copy"><span class="next-label">Next country to release</span><span class="next-name" id="next-name">Australia</span></div>
   <span class="next-time" id="next-time">Coming up next</span>
 </section>
+
+<section class="music" aria-label="Music player">
+  <h2 class="music-heading">Countdown soundtrack · audio</h2>
+  <div class="music-list">
+    <div class="music-track">
+      <p class="music-name">Midnight City · M83</p>
+      <iframe title="Midnight City by M83 — Spotify audio player" src="https://open.spotify.com/embed/track/6M9DkAAuh4ibDchrc8GBAn?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    <div class="music-track">
+      <p class="music-name">Flower in a Hurricane · Justice, Tame Impala, SZA &amp; King Gizzard &amp; The Lizard Wizard</p>
+      <iframe title="Flower in a Hurricane — Spotify audio player" src="https://open.spotify.com/embed/album/1V8Qu6CwkBfYucnCWxynq8?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
 <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress"></div></div>
 <div class="footer"><span id="rotation">Region 1 of 15</span><span>Auto-rotates every 10 seconds</span></div>
 </main>
